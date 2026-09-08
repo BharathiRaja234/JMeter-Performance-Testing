@@ -14,9 +14,9 @@ pipeline{
     
     stage('Run JMeter in Docker'){
       steps{
-        sh '''
+        
         bat docker run --rm -v "%WORKSPACE%/tests:/tests" -v "%WORKSPACE%:/results" justb4/jmeter:latest -n -t /tests/EmailJmeter.jmx -l /results/results.jtl -e -o /results/html-report
-        '''
+        
       }
     }
     stage('Publish Report'){
