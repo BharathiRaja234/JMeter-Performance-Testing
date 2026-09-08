@@ -15,17 +15,11 @@ pipeline{
     stage('Run JMeter in Docker'){
       steps{
         sh '''
-        docker run --rm\
-        -v "$WORKSPACE/tests:/tests"\
-        -v "$WORKSPACE:/results"\
-        justb4/jmeter:latest\
-        -n -t /tests/EmailJmeter.jmx\
-        -l /results/results.jtl\
-        -e -o /results/html-report
+        docker run --rm -v "$WORKSPACE/tests:/tests" -v "$WORKSPACE:/results" justb4/jmeter:latest -n -t /tests/EmailJmeter.jmx -l /results/results.jtl -e -o /results/html-report
         '''
       }
     }
-    stage('Publish Report')
+    stage('Publish Report'){
     steps{
       publishHTML(target: [
         reportName: 'JMeter Report',
@@ -37,7 +31,7 @@ pipeline{
     }
   }
 }
-}
+
 
 
 
