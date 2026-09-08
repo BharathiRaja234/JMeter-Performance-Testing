@@ -8,15 +8,14 @@ pipeline{
     }
     stage('Clean Previous Report'){
       steps{
-        bat 'rmdir /S /Q html-report & del /Q results.jtl'
+        bat 'if exist html-report rmdir /S /Q html-report'
+        bat 'if exist results.jtl del /Q results.jtl'
       }
     }
     
     stage('Run JMeter in Docker'){
       steps{
-        
-        bat docker run --rm -v "%WORKSPACE%/tests:/tests" -v "%WORKSPACE%:/results" justb4/jmeter:latest -n -t /tests/EmailJmeter.jmx -l /results/results.jtl -e -o /results/html-report
-        
+        bat 'docker run --rm -v %WORKSPACE%/tests:/tests -v %WORKSPACE%:/results justb4/jmeter:latest -n -t /tests/EmailJmeter.jmx -l /results/results.jtl -e -o /results/html-report'
       }
     }
     stage('Publish Report'){
