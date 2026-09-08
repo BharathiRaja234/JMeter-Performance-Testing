@@ -27,7 +27,7 @@ pipeline{
     }
     stage('Publish Report')
     steps{
-      publishHTML(target:[
+      publishHTML(target: [
         reportName: 'JMeter Report',
         reportDir: 'html-report',
         reportFiles: 'index.html',
@@ -36,7 +36,8 @@ pipeline{
         ])
     }
   }
-      
+}
+}
 
 
 
