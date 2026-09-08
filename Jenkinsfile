@@ -8,14 +8,14 @@ pipeline{
     }
     stage('Clean Previous Report'){
       steps{
-        sh 'rm -rf html-report results.jtl'
+        bat 'rmdir /S /Q html-report & del /Q results.jtl'
       }
     }
     
     stage('Run JMeter in Docker'){
       steps{
         sh '''
-        docker run --rm -v "$WORKSPACE/tests:/tests" -v "$WORKSPACE:/results" justb4/jmeter:latest -n -t /tests/EmailJmeter.jmx -l /results/results.jtl -e -o /results/html-report
+        bat docker run --rm -v "%WORKSPACE%/tests:/tests" -v "%WORKSPACE%:/results" justb4/jmeter:latest -n -t /tests/EmailJmeter.jmx -l /results/results.jtl -e -o /results/html-report
         '''
       }
     }
