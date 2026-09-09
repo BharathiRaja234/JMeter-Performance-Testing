@@ -1,11 +1,14 @@
 pipeline{
   agent any
   stages{
-    stage('Checkout'){
+    stage('Build Docker Image'){
       steps{
-        git branch: 'main' , url: 'https://github.com/BharathiRaja234/JMeter-Performance-Testing.git'
+        bat '"C: \\Program Files \\Docker\\Docker\\resources\\bin\\docker.exe" build -t products-jmeter .'
       }
     }
+
+
+
     stage('Clean Previous Report'){
       steps{
         bat 'if exist html-report rmdir /S /Q html-report'
@@ -15,7 +18,7 @@ pipeline{
     
     stage('Run JMeter in Docker'){
       steps{
-        bat ' "C: \\Program Files \\Docker\\Docker\\resources\\bin\\docker.exe" run --rm -v %WORKSPACE%/tests:/tests -v %WORKSPACE%:/results justb4/jmeter:latest -n -t /tests/EmailJmeter.jmx -l /results/results.jtl -e -o /results/html-report'
+        bat ' "C: \\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" run --rm -v %WORKSPACE%/tests:/tests -v %WORKSPACE%:/results justb4/jmeter:latest -n -t /tests/EmailJmeter.jmx -l /results/results.jtl -e -o /results/html-report'
       }
     }
     stage('Publish Report'){
