@@ -3,7 +3,7 @@ pipeline{
   stages{
     stage('Build Docker Image'){
       steps{
-        bat '"C: \\Program Files \\Docker\\Docker\\resources\\bin\\docker.exe" build -t products-jmeter .'
+        bat '"C:\\Users\\HP\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" build -t products-jmeter .'
       }
     }
 
@@ -18,7 +18,7 @@ pipeline{
     
     stage('Run JMeter in Docker'){
       steps{
-        bat ' "C: \\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" run --rm -v %WORKSPACE%/tests:/tests -v %WORKSPACE%:/results justb4/jmeter:latest -n -t /tests/EmailJmeter.jmx -l /results/results.jtl -e -o /results/html-report'
+        bat ' "C:\\Users\\HP\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" run --rm -v %WORKSPACE%/tests:/tests -v %WORKSPACE%:/results justb4/jmeter:latest -n -t /tests/EmailJmeter.jmx -l /results/results.jtl -e -o /results/html-report'
       }
     }
     stage('Publish Report'){
