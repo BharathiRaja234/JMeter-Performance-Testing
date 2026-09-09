@@ -1,0 +1,4 @@
+FROM justb4/jmeter:5.6.3
+WORKDIR /test
+COPY EmailJmeter.jmx /test/EmailJmeter.jmx
+ENTRYPOINT ["jmeter"]
